@@ -15,13 +15,12 @@ public class TestVactor {
         ExecutorService pool = Executors.newFixedThreadPool(4);
         for (int i = 0; i < 4; i++) {
             pool.submit(() -> {
-                while (true) {
-                    vector.add("maoyuna");
-                    if (vector.size() % 50 == 0){
-                        System.out.println(vector.size());
-                    }
+                for (int j = 0; j < 4; j++) {
+                    vector.add(String.valueOf(j));
                 }
             });
         }
+        pool.shutdown();
+        System.out.println(vector.size());
     }
 }
