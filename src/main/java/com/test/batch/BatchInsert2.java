@@ -1,11 +1,9 @@
 package com.test.batch;
 
-import com.alibaba.druid.util.JdbcUtils;
 import com.test.utils.DruidUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 /**
  * @author: Rrow
