@@ -5,6 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.sql.Time;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: Rrow
@@ -13,19 +18,16 @@ import java.sql.Connection;
 public class TestDruid {
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(TestDruid.class);
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>(2), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
         for (int i = 0; i < 10; i++) {
-            new Thread(() -> {
+            Runnable runnable = (() -> {
                 while (true) {
-                    try {
-                        Thread.sleep(1000);
-                        Connection connection = DruidUtils.getConnection();
-                        logger.info(connection.toString());
-                        DruidUtils.closeAll(connection);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    Connection connection = DruidUtils.getConnection();
+                    DruidUtils.closeAll(connection);
+                    logger.info("connection is returned");
                 }
-            }).start();
+            });
+            executor.submit(runnable);
         }
 
 

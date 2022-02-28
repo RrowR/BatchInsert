@@ -30,13 +30,13 @@ public class BatchInsert2 {
             String sql = "insert into user(name,age,hobby) values(?,?,?)";
             ps = conn.prepareStatement(sql);
             // 4.插入数据
-            for (int i = 1; i <= 20000; i++) {
+            for (int i = 1; i <= 2000000; i++) {
                 ps.setString(1, "猫羽雫" + i);
                 ps.setString(2, "1" + i);
                 ps.setString(3, "hobby" + i);
                 //每满500条数据执行一次更新
                 ps.addBatch();
-                if (i % 2000 == 0) {
+                if (i % 20000 == 0) {
                     // 执行批量更新
                     ps.executeBatch();
                     // 清空执行过的sql
