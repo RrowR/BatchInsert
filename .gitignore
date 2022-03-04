@@ -1,3 +1,4 @@
 .idea
-/target/
+/target/**
 *.log
+/dependency-reduced-pom.xml

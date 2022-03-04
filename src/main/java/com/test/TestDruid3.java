@@ -12,19 +12,21 @@ import java.util.concurrent.Executors;
  * @author: Rrow
  * @date: 2022/2/23 12:18
  */
-public class    TestDruid2 {
+public class TestDruid3 {
     public static void main(String[] args) {
-        Logger logger = LoggerFactory.getLogger(TestDruid2.class);
+        Logger logger = LoggerFactory.getLogger(TestDruid3.class);
         ExecutorService threadPool = Executors.newFixedThreadPool(100);
         for (int i = 0; i < 100; i++) {
             threadPool.submit(() -> {
                 while (true) {
                     try {
                         Connection connection = DruidUtils.getConnection();
-                        logger.info(connection.toString());
-                        Thread.sleep(5000);
+                        int time = (int) Math.ceil(Math.random() * 5000);
+                        logger.info("获得连接{}", connection);
+                        logger.info("时间为{}",time);
+                        Thread.sleep(time);
                         DruidUtils.closeAll(connection);
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
