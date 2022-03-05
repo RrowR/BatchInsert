@@ -9,16 +9,16 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba</groupId>-->
-<!--            <artifactId>druid</artifactId>-->
-<!--            <version>1.0.28</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.10</version>
+            <version>1.0.28</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>druid</artifactId>-->
+<!--            <version>1.1.10</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -39,6 +39,11 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.7.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
         </dependency>
     </dependencies>
     <properties>
@@ -62,7 +67,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <!--这里写你的main函数所在的类的路径名，也就是Class.forName的那个字符串-->
-                                    <mainClass>com.test.TestDruid3</mainClass>
+                                    <mainClass>com.test.TestDruid5</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

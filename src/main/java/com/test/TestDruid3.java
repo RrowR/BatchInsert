@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 public class TestDruid3 {
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(TestDruid3.class);
-        ExecutorService threadPool = Executors.newFixedThreadPool(100);
+        ExecutorService threadPool = Executors.newFixedThreadPool(80);
         for (int i = 0; i < 100; i++) {
             threadPool.submit(() -> {
                 while (true) {
