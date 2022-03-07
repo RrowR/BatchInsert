@@ -1,5 +1,6 @@
 package com.test;
 
+import com.alibaba.druid.pool.DruidPooledConnection;
 import com.test.utils.DruidUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class    TestDruid2 {
                         Connection connection = DruidUtils.getConnection();
                         logger.info(connection.toString());
                         Thread.sleep(5000);
-                        DruidUtils.closeAll(connection);
+                        DruidUtils.closeAll((DruidPooledConnection) connection);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

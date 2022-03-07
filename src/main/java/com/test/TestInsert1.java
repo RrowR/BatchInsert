@@ -1,5 +1,6 @@
 package com.test;
 
+import com.alibaba.druid.pool.DruidPooledConnection;
 import com.test.utils.DruidUtils;
 
 import java.sql.Connection;
@@ -26,6 +27,6 @@ public class TestInsert1 {
         boolean flag = preparedStatement.execute();
         System.out.println(flag);
         connection.commit();
-        DruidUtils.closeAll(connection);
+        DruidUtils.closeAll((DruidPooledConnection) connection);
     }
 }

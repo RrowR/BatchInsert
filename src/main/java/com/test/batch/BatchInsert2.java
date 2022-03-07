@@ -1,5 +1,6 @@
 package com.test.batch;
 
+import com.alibaba.druid.pool.DruidPooledConnection;
 import com.test.utils.DruidUtils;
 
 import java.sql.Connection;
@@ -47,7 +48,7 @@ public class BatchInsert2 {
             e.printStackTrace();
         } finally {
             // 6.关闭资源
-            DruidUtils.closeAll(conn);
+            DruidUtils.closeAll((DruidPooledConnection) conn);
         }
         long end = System.currentTimeMillis();
         System.out.println("花费的时间为：" + (end - start));

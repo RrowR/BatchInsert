@@ -2,6 +2,9 @@ package com.test.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.alibaba.druid.pool.DruidPooledConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.InputStream;
@@ -15,7 +18,8 @@ import java.util.Properties;
  */
 public class DruidUtils {
     //Druid德鲁伊,据说是魔兽世界中的一个角色,森林女神
-    public static DruidDataSource dataSource;
+    private static DruidDataSource dataSource;
+    private static Logger logger = LoggerFactory.getLogger(DruidUtils.class);
 
     //1.初始化Druid连接池
     static {
@@ -27,24 +31,38 @@ public class DruidUtils {
                     "druid.properties");
             properties.load(inputStream);
             dataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(properties);
+            dataSource.init();
+            logger.info("静态代码块初始化了数据源");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     //获取连接
-    public static Connection getConnection() {
+    public static DruidPooledConnection getConnection() {
         try {
-            return dataSource.getConnection();
+            logger.info("getDataSource().getActiveCount() = " + getDataSource().getActiveCount());
+            DruidPooledConnection connection = dataSource.getConnection();
+            return connection;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static DataSource getDataSource(){
+    public static DruidDataSource getDataSource(){
         return  dataSource;
     }
     //关闭连接
+    public static void closeAll(DruidPooledConnection conn) {
+        try {
+           if (conn != null){
+               conn.close();
+           }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void closeAll(Connection conn) {
         try {
            if (conn != null){

@@ -18,9 +18,9 @@ import java.util.Map;
  */
 @Slf4j
 public class DbUtil {
-    private static final String DB_URL = "jdbc:mysql://ecs01:3306/batch"; // 数据库连接URL
-    private static final String DB_USERNAME = "root"; // 数据库用户名
-    private static final String DB_PASSWORD = "huangxiaodong"; // 数据库密码
+    private static final String DB_URL = "jdbc:mysql://ecs01:3306/testinsert"; // 数据库连接URL
+    private static final String DB_USERNAME = "test"; // 数据库用户名
+    private static final String DB_PASSWORD = "test"; // 数据库密码
 
     // Druid数据源，全局唯一（只创建一次）
     private static DruidDataSource druidDataSource;
@@ -115,10 +115,10 @@ public class DbUtil {
         druidDataSource.setPassword(DB_PASSWORD);
 
         /*----下面的具体配置参数自己根据项目情况进行调整----*/
-        druidDataSource.setMaxActive(20);
-        druidDataSource.setInitialSize(1);
-        druidDataSource.setMinIdle(1);
-        druidDataSource.setMaxWait(60000);
+        druidDataSource.setMaxActive(11);
+        druidDataSource.setInitialSize(2);
+        druidDataSource.setMinIdle(2);
+        druidDataSource.setMaxWait(20000);
 
         druidDataSource.setValidationQuery("select 1 from dual");
 
@@ -135,6 +135,7 @@ public class DbUtil {
         druidDataSource.init();
         log.info(">>>>>>>>>>> 创建Druid数据源:url={}, username={}, password={}",
                 druidDataSource.getUrl(), druidDataSource.getUsername(), druidDataSource.getPassword());
+        log.info(String.valueOf(druidDataSource.getDataSourceStat().getConnectionActiveCount()));
         return druidDataSource;
     }
 
@@ -146,6 +147,10 @@ public class DbUtil {
      */
     public static DruidPooledConnection getDruidConnection() throws SQLException {
         DruidDataSource druidDataSource = getDruidDataSource();
+        log.info("getDriverClassName " + druidDataSource.getDriverClassName());
+        log.info("getActiveCount:" +druidDataSource.getActiveCount());
+        // log.info("激活的连接数量为:" +druidDataSource.getConnectCount());
+        log.info("getMaxActive:" +druidDataSource.getMaxActive());
         DruidPooledConnection connection = druidDataSource.getConnection();
         return connection;
     }
@@ -158,7 +163,7 @@ public class DbUtil {
      * @param resultSet
      * @throws SQLException
      */
-    private static void closeResource(Connection connection,
+    public static void closeResource(Connection connection,
                                       Statement statement, ResultSet resultSet) throws SQLException {
         // 注意资源释放顺序
         if (resultSet != null) {
@@ -169,6 +174,16 @@ public class DbUtil {
         }
         if (connection != null) {
             connection.close();
+        }
+    }
+
+    public static void closeResource(DruidPooledConnection connection) {
+        if (connection != null){
+            try {
+                connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 }

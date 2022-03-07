@@ -1,5 +1,6 @@
 package com.test;
 
+import com.alibaba.druid.pool.DruidPooledConnection;
 import com.test.utils.DruidUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class TestDruid5 {
                         long end = System.currentTimeMillis();
                         logger.info(connection.toString());
                         Thread.sleep(5000);
-                        DruidUtils.closeAll(connection);
+                        DruidUtils.closeAll((DruidPooledConnection) connection);
                         logger.info("连接关闭,时间为{}", System.currentTimeMillis());
                         logger.info("获取连接执行时间为{}", end - start);
                     } catch (Exception e) {

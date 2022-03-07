@@ -1,5 +1,6 @@
 package com.test;
 
+import com.alibaba.druid.pool.DruidPooledConnection;
 import com.test.utils.DruidUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class TestDruid {
         for (int i = 0; i < 10; i++) {
             Runnable runnable = (() -> {
                 while (true) {
-                    Connection connection = DruidUtils.getConnection();
+                    DruidPooledConnection connection = DruidUtils.getConnection();
                     DruidUtils.closeAll(connection);
                     logger.info("connection is returned");
                 }

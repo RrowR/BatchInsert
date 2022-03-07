@@ -1,5 +1,6 @@
 package com.test;
 
+import com.alibaba.druid.pool.DruidPooledConnection;
 import com.test.utils.DruidUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class TestDruid3 {
                         logger.info("线程休息时间为{}", time);
                         logger.info("获得链接的时间为{}", end - start);
                         Thread.sleep(time);
-                        DruidUtils.closeAll(connection);
+                        DruidUtils.closeAll((DruidPooledConnection) connection);
                         logger.info("数据库连接已经关闭{}", System.currentTimeMillis());
                     } catch (Exception e) {
                         e.printStackTrace();
