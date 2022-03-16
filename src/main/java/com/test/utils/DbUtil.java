@@ -149,7 +149,7 @@ public class DbUtil {
         DruidDataSource druidDataSource = getDruidDataSource();
         log.info("getDriverClassName " + druidDataSource.getDriverClassName());
         log.info("getActiveCount:" +druidDataSource.getActiveCount());
-        // log.info("激活的连接数量为:" +druidDataSource.getConnectCount());
+         log.info("激活的连接数量为:" +druidDataSource.getConnectCount());
         log.info("getMaxActive:" +druidDataSource.getMaxActive());
         DruidPooledConnection connection = druidDataSource.getConnection();
         return connection;
