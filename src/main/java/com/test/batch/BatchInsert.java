@@ -17,7 +17,7 @@ public class BatchInsert {
         // connection.setAutoCommit(false);
         PreparedStatement preparedStatement = connection.prepareStatement("insert user(name,age,hobby) value (?,?,?)");
         boolean execute = false;
-        for (int b = 0;b < 10000;b++) {
+        for (int b = 0;b < 1;b++) {
             int i = 0;
             preparedStatement.setString(++i,"猫羽雫"+b);
             preparedStatement.setString(++i,"1"+b);
