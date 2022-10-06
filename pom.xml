@@ -52,6 +52,11 @@
             <version>8.5.73</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.28</version>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -74,7 +79,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <!--这里写你的main函数所在的类的路径名，也就是Class.forName的那个字符串-->
-                                    <mainClass>com.test.TestDruid5</mainClass>
+                                    <mainClass>com.test.MysqlDriverInsert</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
