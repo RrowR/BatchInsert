@@ -23,7 +23,7 @@ public class MysqlDriverInsert {
                     for (; ; ) {
                         int i = 0;
                         Integer integer = threadValue.get(name);
-                        String time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis());
+                        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis());
                         Connection connection = DriverManager.getConnection("jdbc:mysql://ecs01:3306/testDelete?serverTimezone=UTC&rewriteBatchedStatements=true", "test", "test");
                         connection.setAutoCommit(false);
                         PreparedStatement preparedStatement = connection.prepareStatement("insert user(name,age,hobby) value (?,?,?)");
@@ -35,7 +35,7 @@ public class MysqlDriverInsert {
                         preparedStatement.close();
                         connection.close();
                         threadValue.put(name, ++integer);
-                        Thread.sleep(14400000);
+                        Thread.sleep(30000);
                         System.out.println("name is " + name + " has finished at :" + time);
                     }
                 } catch (InterruptedException | SQLException | RuntimeException e) {
