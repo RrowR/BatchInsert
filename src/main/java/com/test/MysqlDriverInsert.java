@@ -35,7 +35,7 @@ public class MysqlDriverInsert {
                         preparedStatement.close();
                         connection.close();
                         threadValue.put(name, ++integer);
-                        Thread.sleep(10000);
+                        Thread.sleep(14400000);
                         System.out.println("name is " + name + " has finished at :" + time);
                     }
                 } catch (InterruptedException | SQLException | RuntimeException e) {
